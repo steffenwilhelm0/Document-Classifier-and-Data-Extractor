@@ -88,9 +88,17 @@ def extract_data(file_content: str, doc_type: str) -> ExtractedData:
         raise
 
 def display_pdf(file):
-    base64_pdf = base64.b64encode(file.getvalue()).decode('utf-8')
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    try:
+        # Streamlit supports directly displaying PDFs using st.file_uploader
+        pdf_display = f'<iframe src="data:application/pdf;base64,{base64.b64encode(file.read()).decode()}" width="700" height="1000" type="application/pdf"></iframe>'
+        st.markdown(pdf_display, unsafe_allow_html=True)
+    except Exception as e:
+        st.error(f"Error displaying PDF: {str(e)}")
+
+#def display_pdf(file):
+    #base64_pdf = base64.b64encode(file.getvalue()).decode('utf-8')
+    #pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
+    #st.markdown(pdf_display, unsafe_allow_html=True)
 
 def chat_with_ai_stream(file_content: str, user_message: str, chat_history: List[Tuple[str, str]]):
     try:
