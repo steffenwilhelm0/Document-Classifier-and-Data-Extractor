@@ -1,0 +1,4 @@
+pydantic
+streamlit
+pandas
+openai
