@@ -2,3 +2,6 @@ pydantic
 streamlit
 pandas
 openai
+PyPDF2
+python-docx
+docx2txt
